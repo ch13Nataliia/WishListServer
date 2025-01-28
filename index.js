@@ -1,4 +1,7 @@
 const express = require('express');
+
+const mongoose = require('mongoose');
+
 const app = express();
 
 app.use(express.static('public'));
@@ -17,6 +20,19 @@ app.post('/api/v1/wishes', (req, res) => {
   wishes.push(req.body);
   res.sendStatus(201);
 });
-app.listen(PORT, (req, res) => {
-  console.log(`Server listening http://localhost: ${PORT}`);
-});
+
+// mongoose connection
+
+mongoose
+  .connect(
+    'mongodb+srv://adminWishes:vjXxBdWDos2txPOH@wishes.0s1xd.mongodb.net/Wish-List?retryWrites=true&w=majority&appName=wishes',
+  )
+  .then(() => {
+    console.log('Connected to database!');
+    app.listen(PORT, (req, res) => {
+      console.log(`Server listening http://localhost: ${PORT}`);
+    });
+  })
+  .catch(() => {
+    console.log('Connection is failed');
+  });
