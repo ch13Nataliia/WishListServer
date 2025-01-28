@@ -7,10 +7,11 @@ const app = express();
 const PORT = 3333;
 
 // middleware
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // routes
+
 app.use('/api/wishes', wishRoute);
 
 app.get('/', (req, res) => {
@@ -20,7 +21,7 @@ app.get('/', (req, res) => {
 // mongoose connection
 mongoose
   .connect(
-    'mongodb+srv://tcirulnatalya:FCfzSoEKCAJsWjkq@cluster0.qx2ju.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    'mongodb+srv://tcirulnatalya:FCfzSoEKCAJsWjkq@cluster0.qx2ju.mongodb.net/Wish-List?retryWrites=true&w=majority&appName=Cluster0',
   )
   .then(() => {
     console.log('Connected to database!');
