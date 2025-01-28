@@ -5,7 +5,9 @@ const wishRoute = require('./routes/wish.route.js');
 const app = express();
 
 const PORT = 3333;
-
+const {
+  DB_URL = 'mongodb+srv://tcirulnatalya:FCfzSoEKCAJsWjkq@cluster0.qx2ju.mongodb.net/Wish-List?retryWrites=true&w=majority&appName=Cluster0',
+} = process.env;
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,9 +22,7 @@ app.get('/', (req, res) => {
 
 // mongoose connection
 mongoose
-  .connect(
-    'mongodb+srv://tcirulnatalya:FCfzSoEKCAJsWjkq@cluster0.qx2ju.mongodb.net/Wish-List?retryWrites=true&w=majority&appName=Cluster0',
-  )
+  .connect(DB_URL)
   .then(() => {
     console.log('Connected to database!');
     app.listen(PORT, (req, res) => {
