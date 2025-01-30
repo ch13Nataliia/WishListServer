@@ -11,6 +11,18 @@ const getWishes = async (req, res) => {
   }
 };
 
+// find wish by ID
+
+const findSingleWish = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const wish = await Wish.findById(id);
+    res.status(200).json(wish);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // created wish
 
 const createWish = async (req, res) => {
@@ -22,7 +34,25 @@ const createWish = async (req, res) => {
   }
 };
 
+// update wish
+const updateWish = async (req, res) => {
+  try {
+    const  id  = req.params.id;
+    const wish = await Wish.findByIdAndUpdate(id, req.body);
+    
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish was NOT FOUND' });
+    }
+    const updatedWish = await Wish.findById(id);
+    res.status(200).json(updatedWish);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getWishes,
   createWish,
+  findSingleWish,
+  updateWish,
 };
