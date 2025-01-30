@@ -37,9 +37,9 @@ const createWish = async (req, res) => {
 // update wish
 const updateWish = async (req, res) => {
   try {
-    const  id  = req.params.id;
+    const id = req.params.id;
     const wish = await Wish.findByIdAndUpdate(id, req.body);
-    
+
     if (!wish) {
       return res.status(404).json({ message: 'Wish was NOT FOUND' });
     }
@@ -50,9 +50,25 @@ const updateWish = async (req, res) => {
   }
 };
 
+// delete single wish
+
+const deleteWish = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const wish = await Wish.findByIdAndDelete(id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish NOT FOUND' });
+    }
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getWishes,
   createWish,
   findSingleWish,
   updateWish,
+  deleteWish,
 };

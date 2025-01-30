@@ -8,11 +8,13 @@ const {
   createWish,
   findSingleWish,
   updateWish,
+  deleteWish,
 } = require('../controllers/wish.controller.js');
 
 router.get('/', getWishes);
 router.get('/:id', findSingleWish);
 router.post('/', createWish);
 router.put('/:id', updateWish);
+router.delete('/:id', deleteWish);
 
 module.exports = router;
